@@ -1,1 +1,18 @@
-.env
+# Backend
+backend/.env
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.idea
+backend/*.iws
+backend/*.iml
+backend/*.ipr
+
+# Frontend (quando criar)
+frontend/node_modules/
+frontend/.env
+frontend/dist/
+frontend/build/
+
+# OS
+.DS_Store
+Thumbs.db
