@@ -43,7 +43,8 @@ public class AuthController {
             newUser.setEmail(body.email());
             newUser.setPassword(passwordEncoder.encode(body.password()));
 
-            this.userRepository.save(newUser);
+            UserEntity saved = this.userRepository.save(newUser);
+            System.out.println("USUÁRIO SALVO: " + saved);
             String token = tokenService.generateToken(newUser);
             return ResponseEntity.ok(new ResponseDTO(newUser.getName(), token));
         }
