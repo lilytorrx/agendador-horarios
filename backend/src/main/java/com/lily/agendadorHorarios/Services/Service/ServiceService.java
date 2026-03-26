@@ -19,6 +19,8 @@ public class ServiceService {
         ServiceEntity service = new ServiceEntity();
         service.setServiceName(dto.serviceName());
         service.setDuration(dto.duration());
+        service.setPrice(dto.price());
+        service.setCategory(dto.category());
         return toDTO(serviceRepository.save(service));
     }
 

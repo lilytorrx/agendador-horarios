@@ -23,6 +23,8 @@ public class ServiceEntity {
 
     private float price;
 
+    private String category;
+
     @ManyToMany(mappedBy = "service", cascade = CascadeType.ALL)
     private List<ProfessionalServiceEntity> professionalServices;
 }
