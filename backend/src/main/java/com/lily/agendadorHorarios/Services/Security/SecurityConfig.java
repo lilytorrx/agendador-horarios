@@ -60,6 +60,12 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+        
+        http.headers(headers -> headers
+                .frameOptions(frame -> frame.deny())
+                .xssProtection(Customizer.withDefaults())
+                .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'"))
+        );
 
         return http.build();
     }
