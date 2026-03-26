@@ -41,6 +41,7 @@ public class AuthController {
             // Criação do novo usuário no register
             newUser.setName(body.name());
             newUser.setEmail(body.email());
+            newUser.setCpf(body.cpf());
             newUser.setPassword(passwordEncoder.encode(body.password()));
 
             UserEntity saved = this.userRepository.save(newUser);

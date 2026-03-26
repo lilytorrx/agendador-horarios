@@ -1,4 +1,6 @@
 package com.lily.agendadorHorarios.DTOs.ProfessionalService;
 
-public record ProfessionalServiceRequestDTO(Long professionalId, Long serviceId) {
+import jakarta.validation.constraints.NotBlank;
+
+public record ProfessionalServiceRequestDTO(@NotBlank Long professionalId, @NotBlank Long serviceId) {
 }

@@ -1,4 +1,7 @@
 package com.lily.agendadorHorarios.DTOs.Auth;
 
-public record LoginRequestDTO(String email, String password) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record LoginRequestDTO(@NotBlank String email, @NotBlank @Size(min=6) String password) {
 }
