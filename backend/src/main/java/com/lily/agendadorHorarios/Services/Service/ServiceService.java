@@ -53,6 +53,6 @@ public class ServiceService {
 
 
     public ServiceResponseDTO toDTO(ServiceEntity entity) {
-        return new ServiceResponseDTO(entity.getId(), entity.getServiceName(), entity.getDuration());
+        return new ServiceResponseDTO(entity.getId(), entity.getServiceName(), entity.getDuration(), entity.getPrice(), entity.getCategory());
     }
 }

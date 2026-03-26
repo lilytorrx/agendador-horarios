@@ -36,7 +36,8 @@ public class UserService {
                 userEntity.getId(),
                 userEntity.getName(),
                 userEntity.getEmail(),
-                userEntity.getRole()
+                userEntity.getRole(),
+                userEntity.getCpf()
         );
     }
 }
