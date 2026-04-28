@@ -211,16 +211,13 @@ npm run dev
 agendador-horarios/
 ├── backend/
 │   ├── src/
-│   ├── .env           ← não versionar
-│   ├── .env.example   ← versionar (sem valores reais)
+│   ├── .env          
+│   ├── .env.example   (para quem quiser clonar)
 │   └── pom.xml
 └── frontend/
     ├── src/
     └── package.json
 ```
-
-> 💡 **Dica:** mantenha um `.env.example` no repositório com as chaves necessárias, mas sem os valores reais, para facilitar o setup de novos colaboradores.
-
 ---
 
 ## Ferramentas utilizadas no desenvolvimento
