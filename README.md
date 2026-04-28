@@ -214,11 +214,17 @@ npm run dev
 agendador-horarios/
 ├── backend/
 │   ├── src/
-│   ├── .env           ← não versionar
-│   ├── .env.example   ← versionar (sem valores reais)
+│   ├── .env          (não está no repositório)
+│   ├── .env.example   
 │   └── pom.xml
 └── frontend/
     ├── src/
+    ├──── assets/
+    ├────── css/
+    ├────── img/
+    ├──── components/
+    ├──── pages/
+    ├────── auth/
     └── package.json
 ```
 
