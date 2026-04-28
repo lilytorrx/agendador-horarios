@@ -10,7 +10,6 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import AdminRoute from "./components/AdminRoute"
 
 function App() {
-  localStorage.setItem("token", "1234567890")
   
   return (
     <div className="App">
