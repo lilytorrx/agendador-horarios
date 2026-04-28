@@ -28,7 +28,7 @@ const Register = () => {
   }
 
   function maskCpf() {
-    let text = document.getElementById("cpf").innerHTML
+    // validação de cpf e máscara
   } 
 
   return (
