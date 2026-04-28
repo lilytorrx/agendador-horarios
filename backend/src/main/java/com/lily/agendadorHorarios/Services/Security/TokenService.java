@@ -27,6 +27,7 @@ public class TokenService {
                     withIssuer("agendadorHorarios")
                     .withSubject(user.getEmail())
                     .withExpiresAt(this.generateTokenExpirationDate())
+                    .withClaim("role", user.getRole().toString())
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
