@@ -11,6 +11,22 @@ const Login = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        setError(null)
+        setLoading(true)
+
+        try {
+            const data = await loginRequest(email, password)
+            saveToken(data.token)
+            navigate("/dashboard")
+        } catch (err){
+            setError(err.message)
+        } finally {
+            setLoading(false)
+        }
+    } 
+
     return (
         <></>
     )
