@@ -7,4 +7,7 @@ export const loginRequest = (email, password) => apiFetch("/auth/login", {
 })
 
 // Register 
-export const registerRequest = (username,  email, password, cpf)
+export const registerRequest = (username,  email, password, cpf) => apiFetch("/auth/register", {
+    method: "POST",
+    body: JSON.stringify({username, email, password, cpf})
+}) 
