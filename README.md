@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/frontend/src/assets/img/logotipo.png" alt="AgendIn" width="200"/>
+  <img src="/frontend/src/assets/img/imagotipo.png" alt="AgendIn" width="200"/>
 </p>
 
 <h1 align="center">AgendIn — Agendador de Horários</h1>
