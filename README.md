@@ -132,9 +132,6 @@ DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
 SECRET_KEY=sua_chave_secreta
 ```
-
-> ⚠️ **Nunca versione o arquivo `.env`.** Certifique-se de que ele está listado no `.gitignore`.
-
 ---
 
 ## Como executar localmente
@@ -214,8 +211,13 @@ npm run dev
 agendador-horarios/
 ├── backend/
 │   ├── src/
+<<<<<<< HEAD
 │   ├── .env          (não está no repositório)
 │   ├── .env.example   
+=======
+│   ├── .env          
+│   ├── .env.example   (para quem quiser clonar)
+>>>>>>> 4aac3f5565ae2b80d774743df2e36ed2b796515f
 │   └── pom.xml
 └── frontend/
     ├── src/
@@ -227,9 +229,6 @@ agendador-horarios/
     ├────── auth/
     └── package.json
 ```
-
-> 💡 **Dica:** mantenha um `.env.example` no repositório com as chaves necessárias, mas sem os valores reais, para facilitar o setup de novos colaboradores.
-
 ---
 
 ## Ferramentas utilizadas no desenvolvimento
