@@ -132,9 +132,6 @@ DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
 SECRET_KEY=sua_chave_secreta
 ```
-
-> ⚠️ **Nunca versione o arquivo `.env`.** Certifique-se de que ele está listado no `.gitignore`.
-
 ---
 
 ## Como executar localmente
