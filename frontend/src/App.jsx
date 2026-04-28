@@ -7,6 +7,8 @@ import LandingPage from "./pages/LandingPage"
 import Logo from "./assets/img/imagotipo.png"
 
 function App() {
+  localStorage.setItem("token", "1234567890")
+  
   return (
     <div className="App">
         <main>
