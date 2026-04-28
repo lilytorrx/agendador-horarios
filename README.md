@@ -211,13 +211,8 @@ npm run dev
 agendador-horarios/
 ├── backend/
 │   ├── src/
-<<<<<<< HEAD
 │   ├── .env          (não está no repositório)
 │   ├── .env.example   
-=======
-│   ├── .env          
-│   ├── .env.example   (para quem quiser clonar)
->>>>>>> 4aac3f5565ae2b80d774743df2e36ed2b796515f
 │   └── pom.xml
 └── frontend/
     ├── src/
