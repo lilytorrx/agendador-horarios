@@ -23,6 +23,11 @@ const Register = () => {
     setError(null)
 
     const cpfOnly = cpfDigits(cpf)
+    
+    if (!name || !email || !password || !cpfOnly) {
+      setError("Todos os campos são obrigatórios.")
+      return
+    }
 
     if (!isValidCpf(cpfOnly)) {
       setError("CPF inválido.")
@@ -30,11 +35,6 @@ const Register = () => {
     }
 
     setLoading(true)
-
-    if (!name || !email || !password || !cpfOnly) {
-      setError("Todos os campos são obrigatórios.")
-      return
-    }
 
     try {
       await registerRequest(name, email, password, cpf)
@@ -87,7 +87,7 @@ const Register = () => {
                 <label htmlFor="email">E-mail</label>
                 <input
                   id="email"
-                  type="text"
+                  type="email"
                   placeholder="Ex: joaosilva@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -98,7 +98,7 @@ const Register = () => {
                 <label htmlFor="password">Senha</label>
                 <input
                   id="password"
-                  type="text"
+                  type="password"
                   placeholder="Ex: 123456789"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

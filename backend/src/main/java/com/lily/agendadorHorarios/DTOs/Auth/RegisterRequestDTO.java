@@ -8,6 +8,6 @@ public record RegisterRequestDTO(
         @NotBlank String name,
         @Email @NotBlank String email,
         @NotBlank @Size(min=6) String password,
-        @NotBlank @Size(min = 11, max = 11) String cpf
+        @NotBlank @Size(min = 14, max = 14) String cpf
 ) {
 }
