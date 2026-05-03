@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import Logo from "../../assets/img/imagotipo.png"
+import { registerRequest } from "../../services/authService"
+import { cpfDigits, formatCpfMasked, isValidCpf } from "../../utils/cpf";
 
 const Register = () => {
   const navigate = useNavigate()
@@ -11,11 +13,28 @@ const Register = () => {
   const [cpf, setCpf] = useState("")
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-  
+
+  const handleCpfChange = (e) => {
+    setCpf(formatCpfMasked(e.target.value))
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault()
     setError(null)
+
+    const cpfOnly = cpfDigits(cpf)
+
+    if (!isValidCpf(cpfOnly)) {
+      setError("CPF inválido.")
+      return
+    }
+
     setLoading(true)
+
+    if (!name || !email || !password || !cpfOnly) {
+      setError("Todos os campos são obrigatórios.")
+      return
+    }
 
     try {
       await registerRequest(name, email, password, cpf)
@@ -25,11 +44,7 @@ const Register = () => {
     } finally {
       setLoading(false)
     }
-  }
-
-  function maskCpf() {
-    // validação de cpf e máscara
-  } 
+  };
 
   return (
     <>
@@ -40,6 +55,7 @@ const Register = () => {
               <img src={Logo} alt="Logo AgendIn" />
               <p>Seja bem-vindo ao sistema!</p>
               <p><mark>Crie uma conta para continuar.</mark></p>
+              <p>{ error ? <span className="errorMessage">{ error }</span> : null }</p>
             </div>
             <div className="inputs">
               <div className="input">
@@ -55,37 +71,37 @@ const Register = () => {
               </div>
               <div className="input">
                 <label htmlFor="cpf">CPF</label>
-                <input 
+                <input
                   id="cpf"
-                  type="text"  
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="off"
                   placeholder="Ex: 123.456.789-01"
+                  maxLength={14}
                   value={cpf}
-                  onChange={(e) => setCpf(e.target.value)}
-                  onKeyDown={maskCpf()}
+                  onChange={handleCpfChange}
                   required
                 />
               </div>
               <div className="input">
                 <label htmlFor="email">E-mail</label>
-                <input 
+                <input
                   id="email"
-                  type="text"  
+                  type="text"
                   placeholder="Ex: joaosilva@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onKeyDown={maskCpf()}
                   required
                 />
               </div>
               <div className="input">
                 <label htmlFor="password">Senha</label>
-                <input 
+                <input
                   id="password"
-                  type="text"  
+                  type="text"
                   placeholder="Ex: 123456789"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onKeyDown={maskCpf()}
                   required
                 />
               </div>
