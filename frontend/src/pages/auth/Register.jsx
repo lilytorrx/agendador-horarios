@@ -18,15 +18,17 @@ const Register = () => {
   const [cpf, setCpf] = useState("")
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-
+  
   const handleCpfChange = (e) => {
     setCpf(formatCpfMasked(e.target.value))
   };
 
+  let passwordType, confirmPasswordType
+
   const handleRegister = async (e) => {
     e.preventDefault()
     setError(null)
-
+    
     const cpfOnly = cpfDigits(cpf)
     
     if (!name || !email || !password || !cpfOnly) {
@@ -39,32 +41,50 @@ const Register = () => {
       return
     }
 
-    setLoading(true)
-
-    try {
-      await registerRequest(name, email, password, cpf)
-      navigate("/login")
-    } catch (err){
-      setError("Ocorreu um erro. Tente novamente.")
-    } finally {
-      setLoading(false)
+    if (password != confirmPassword) {
+      setError("As senhas devem ser iguais.")
+      return
     }
-  };
 
-  let passwordType, confirmPasswordType
+    // REGEX -> ao menos uma letra maiúscula, símbolo e número
+    let passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/
 
-  // Tipo de input para senha e confirmação de senha (mesma coisa para o login)
-  if(showPassword) {
-    passwordType="text"
-  } else {
-    passwordType="password"
+    if (!passwordRegex.test(password)) {
+      setError("As senhas devem conter 8 ou mais caracteres, com letra maíusculas e números.")
+      return
+    } 
+
+    if (password !== confirmPassword) {
+      setError("As senhas devem ser iguais.")
+      return
+    }
+    
+  
+ 
+   // Tipo de input para senha e confirmação de senha (mesma coisa para o login)
+   if(showPassword) {
+     passwordType="text"
+   } else {
+     passwordType="password"
+   }
+ 
+   if(showConfirmPassword) {
+     confirmPasswordType="text"
+   } else {
+     confirmPasswordType="password"
+   }
+
+  setLoading(true)
+
+  try {
+    await registerRequest(name, email, password, cpf)
+    navigate("/login")
+  } catch (err){
+    setError("Ocorreu um erro. Tente novamente.")
+  } finally {
+    setLoading(false)
   }
-
-  if(showConfirmPassword) {
-    confirmPasswordType="text"
-  } else {
-    confirmPasswordType="password"
-  }
+};
 
   return (
     <>
