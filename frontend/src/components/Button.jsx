@@ -1,9 +1,9 @@
-const Button = ({ children, onClick}) => {
-    return (
-        <button className="btn" onClick={onClick}>
-            {children}
-        </button>
-    )
-}
+const Button = ({ children, onClick, type = "button", disabled = false }) => {
+  return (
+    <button className="btn" type={type} onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  );
+};
 
 export default Button;
