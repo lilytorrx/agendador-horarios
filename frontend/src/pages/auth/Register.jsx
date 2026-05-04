@@ -3,13 +3,18 @@ import { useNavigate } from "react-router-dom"
 import Logo from "../../assets/img/imagotipo.png"
 import { registerRequest } from "../../services/authService"
 import { cpfDigits, formatCpfMasked, isValidCpf } from "../../utils/cpf";
+import { EyeClosedIcon, EyeIcon } from "lucide-react"
+import Button from "../../components/Button"
 
 const Register = () => {
   const navigate = useNavigate()
-
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [cpf, setCpf] = useState("")
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -40,17 +45,31 @@ const Register = () => {
       await registerRequest(name, email, password, cpf)
       navigate("/login")
     } catch (err){
-      setError(err.message)
+      setError("Ocorreu um erro. Tente novamente.")
     } finally {
       setLoading(false)
     }
   };
 
+  let passwordType, confirmPasswordType
+
+  // Tipo de input para senha e confirmação de senha (mesma coisa para o login)
+  if(showPassword) {
+    passwordType="text"
+  } else {
+    passwordType="password"
+  }
+
+  if(showConfirmPassword) {
+    confirmPasswordType="text"
+  } else {
+    confirmPasswordType="password"
+  }
+
   return (
     <>
       <section className="background">
         <form className="registerForm" onSubmit={handleRegister}>
-            <p className="errorMessage">{ error }</p>
             <div className="top">
               <img src={Logo} alt="Logo AgendIn" />
               <p>Seja bem-vindo ao sistema!</p>
@@ -98,14 +117,35 @@ const Register = () => {
                 <label htmlFor="password">Senha</label>
                 <input
                   id="password"
-                  type="password"
+                  type={passwordType}
                   placeholder="Ex: 123456789"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                 <span className="showPassword">
+                  {showPassword ? <EyeIcon size={20}color="#717171" onClick={() => setShowPassword(!showPassword)}/> : <EyeClosedIcon size={20} color="#717171" onClick={() => setShowPassword(!showPassword)}/>}
+                </span>
+              </div>
+              <div className="input">
+                <label htmlFor="confirmPassword">Confirme a senha</label>
+                <input
+                  id="confirmPassword"
+                  type={confirmPasswordType}
+                  placeholder="Ex: 123456789"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+                <span className="showPassword">
+                  {showConfirmPassword ? <EyeIcon size={20}color="#717171" onClick={() => setShowConfirmPassword(!showConfirmPassword)}/> : <EyeClosedIcon size={20} color="#717171" onClick={() => setShowConfirmPassword(!showConfirmPassword)}/>}
+                </span>
               </div>
             </div>
+            <Button
+              onClick={handleRegister}
+              children="Criar conta"
+            />
         </form>
       </section>
     </>
