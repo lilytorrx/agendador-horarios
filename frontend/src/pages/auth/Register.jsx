@@ -58,8 +58,6 @@ const Register = () => {
       setError("As senhas devem ser iguais.")
       return
     }
-    
-  
  
    // Tipo de input para senha e confirmação de senha (mesma coisa para o login)
    if(showPassword) {
