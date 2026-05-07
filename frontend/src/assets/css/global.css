@@ -1,0 +1,44 @@
+* {
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    font-family: var(--font);
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
+mark {
+    color: var(--main_color);
+    background-color: transparent;
+}
+
+:root {
+    --main_color: #883CE5;
+    --white: #fff;
+    --black: #000;
+    --dark_purple: #14002C;
+    
+    --label: #717171;
+
+    --font: "Roboto", sans-serif;
+
+    --title_mobile: 20px;
+    --title_desktop: 32px;
+
+    --body_mobile: 12px;
+    --body_desktop: 24px;
+}
+
+.btn {
+    border-radius: 20px;
+    padding: 1rem;
+    color: var(--white);
+    background-color: var(--main_color);
+}
+
+.mobile {
+    width: 150px;
+}

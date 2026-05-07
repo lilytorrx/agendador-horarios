@@ -3,6 +3,8 @@ import { Route, Routes, Link, useNavigate } from "react-router-dom"
 import Button from "../components/Button"
 import Logo from "../assets/img/imagotipo.png"
 
+import "../assets/css/LandingPage.css"
+
 const LandingPage = () => {
     const navigate = useNavigate()
 
@@ -10,12 +12,12 @@ const LandingPage = () => {
         <section className="landing-page">
             <section className="top">
                 <header>
-                    <img src={Logo} alt="" />
+                    <img src={Logo} alt="" className="logo"/>
                     <nav>
                         <ul>
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/Login">Login</Link></li>
-                            <li><Link to="/Register">Register</Link></li>
+                            <li>Contato</li>
                         </ul>
                     </nav>
                 </header>
@@ -25,6 +27,7 @@ const LandingPage = () => {
                     <Button
                         onClick={() => navigate("/Register")}
                         children="Agendar serviço"
+                        className="btn mobile"
                     />
                 </div>
             </section>
@@ -54,6 +57,7 @@ const LandingPage = () => {
                     <Button
                         onClick={() => navigate("/Register")}
                         children="Criar conta"
+                        className="btn mobile"
                     />
                 </div>
             </section>
@@ -73,6 +77,7 @@ const LandingPage = () => {
                         <Button
                             onClick={() => navigate("/Register")}
                             children="Agendar agora"
+                            className="btn mobile"
                         />
                     </section>
                     <section className="professional">
@@ -86,10 +91,28 @@ const LandingPage = () => {
                         <Button
                             onClick={() => navigate("/Register")}
                             children="Agendar agora"
+                            className="btn mobile"
                         />
                     </section>
                 </section>
             </section>
+            <section className="FAQ">
+                <h1>Perguntas Frequentes (FAQ)</h1>
+                <p>Tire suas dúvidasa aqui, caso tenha outra pergunta, entre em contato com nossa <mark>equipe de atendimento.</mark></p>
+            </section>
+            <footer>
+                <div className="footer-info">
+                    <div>
+                        <img src={Logo} alt="" className="logo" />
+                        <p>Rua Teste 123, Bairro Legal - Brasil</p>
+                    </div>
+                    <div>
+                        <p>agendin@email.com</p>
+                        <p>Instagram</p>
+                    </div>
+                </div>
+                <p>Agendin ₢2026. Todos os direitos reservados.</p>
+            </footer>
         </section>
     )
 }

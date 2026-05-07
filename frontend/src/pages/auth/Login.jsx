@@ -52,7 +52,7 @@ const Login = () => {
     <>
       <section className="background">
         <form className="loginForm" onSubmit={handleLogin}>
-          <div className="top">
+          <div className="top-login">
             <img src={Logo} alt="Logo AgendIn" />
             <p>Seja bem-vindo ao sistema!</p>
             <p>
@@ -104,7 +104,7 @@ const Login = () => {
             <Link to="/ForgotPassword">Esqueceu a senha?</Link>
             <Link to="/Register">Não possui cadastro?</Link>
           </span>
-          <Button type="submit" children="Entrar" />
+          <Button type="submit" children="Entrar" className="btn mobile"/>
           <div className="or-other-options">
             <hr />
             <p>ou</p>

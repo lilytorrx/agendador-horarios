@@ -88,7 +88,7 @@ const Register = () => {
     <>
       <section className="background">
         <form className="registerForm" onSubmit={handleRegister}>
-          <div className="top">
+          <div className="top-login">
             <img src={Logo} alt="Logo AgendIn" />
             <p>Seja bem-vindo ao sistema!</p>
             <p>
@@ -191,7 +191,7 @@ const Register = () => {
           <span>
             <Link to="/Login">Já possui login?</Link>
           </span>
-          <Button type="submit" children="Cadastrar" />
+          <Button type="submit" children="Cadastrar" className="btn mobile" />
           <div className="or-other-options">
             <hr />
             <p>ou</p>

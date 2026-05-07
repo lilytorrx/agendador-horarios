@@ -1,0 +1,46 @@
+.top {
+    color: var(--white);
+    padding: 1.5rem;
+    background-image: url("../img/banner.png");
+    background-position: center center;
+    background-size: cover;
+}
+
+.top header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner {
+    margin-top: 5rem;
+    font-size: var(--body_mobile);
+    text-align: center;
+}
+
+.logo {
+    width: 140px;
+}
+
+nav ul li {
+    display: inline-block;
+    padding: 0.5rem;
+}
+
+nav ul li a{
+    font-weight: normal;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.title {
+    font-size: var(--title_mobile);
+}
+
+.subtitle {
+    font-size: var(--body_mobile);
+}
+
+.title, .subtitle {
+    margin-bottom: 1rem;
+}
