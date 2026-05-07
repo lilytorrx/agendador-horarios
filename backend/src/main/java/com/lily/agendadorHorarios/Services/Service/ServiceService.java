@@ -24,6 +24,7 @@ public class ServiceService {
         service.setDuration(dto.duration());
         service.setPrice(dto.price());
         service.setCategory(dto.category());
+        service.setImageUrl(dto.imageUrl());
         return toDTO(serviceRepository.save(service));
     }
 
@@ -69,6 +70,6 @@ public class ServiceService {
 
 
     public ServiceResponseDTO toDTO(ServiceEntity entity) {
-        return new ServiceResponseDTO(entity.getId(), entity.getServiceName(), entity.getDuration(), entity.getPrice(), entity.getCategory());
+        return new ServiceResponseDTO(entity.getId(), entity.getServiceName(), entity.getDuration(), entity.getPrice(), entity.getCategory(), entity.getImageUrl());
     }
 }

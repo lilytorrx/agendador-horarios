@@ -25,6 +25,9 @@ public class ServiceEntity {
 
     private String category;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToMany(mappedBy = "service", cascade = CascadeType.ALL)
     private List<ProfessionalServiceEntity> professionalServices;
 }
