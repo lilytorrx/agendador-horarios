@@ -1,5 +1,8 @@
 import { apiFetch } from "./api";
 
+// GET /services/public
+export const getPublicServices = () => apiFetch("/services/public")
+
 // ADMIN ONLY
 
 // GET /services
@@ -7,6 +10,7 @@ export const getServices = () => apiFetch("/services")
 
 // GET /services/:id
 export const getServiceById = (id) => apiFetch(`/services/${id}`)
+
 
 // POST /services
 export const createService = (data) => apiFetch("/services", {

@@ -25,6 +25,12 @@ public class ServiceController {
         return ResponseEntity.ok(service.listarTodos());
     }
 
+    @GetMapping("/public")
+    public ResponseEntity<List<ServiceResponseDTO>> getServicosPublicos() {
+        List<ServiceResponseDTO> services = service.getServicosPublicos();
+        return ResponseEntity.ok(services);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ServiceResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPorId(id));

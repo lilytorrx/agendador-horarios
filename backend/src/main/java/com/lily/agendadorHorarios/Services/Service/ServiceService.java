@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +46,19 @@ public class ServiceService {
         service.setServiceName(dto.serviceName());
         service.setDuration(dto.duration());
         return toDTO(serviceRepository.save(service));
+    }
+
+    public List<ServiceResponseDTO> getServicosPublicos() {
+        List<ServiceResponseDTO> services = serviceRepository.findAll()
+            .stream()
+            .map(this::toDTO)
+            .collect(Collectors.toList());
+
+            shuffle(services);
+
+            return services.stream()
+                .limit(2)
+                .toList();
     }
 
     public void deletar(Long id) {

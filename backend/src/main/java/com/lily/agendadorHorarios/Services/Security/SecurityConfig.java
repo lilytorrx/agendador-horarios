@@ -51,6 +51,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
+                        //Rota de serviços pública para landing page
+                        .requestMatchers(HttpMethod.GET, "/services/public").permitAll()
+
                         // Auth para ADMIN (profissionais, serviços e vínculos)
                         .requestMatchers("/professionals/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/services/**").hasAuthority("ROLE_ADMIN")

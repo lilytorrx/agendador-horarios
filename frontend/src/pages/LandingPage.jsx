@@ -1,4 +1,6 @@
 import { Route, Routes, Link, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { getPublicServices } from "../services/serviceService"
 
 import Button from "../components/Button"
 import Logo from "../assets/img/imagotipo.png"
@@ -7,6 +9,22 @@ import "../assets/css/LandingPage.css"
 
 const LandingPage = () => {
     const navigate = useNavigate()
+    const [services, setServices] = useState([])
+
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const data = await getPublicServices() 
+            
+                const shuffle = data.sort(() => Math.random() - 0.5)
+                setServices(shuffle.slice(0, 2))
+            } catch(err) {
+                console.error("Erro ao buscar serviços.", err)
+            } 
+        }
+
+        fetchServices()
+    }, [])
 
     return (
         <section className="landing-page">
@@ -34,18 +52,15 @@ const LandingPage = () => {
             <section className="section-services">
                 <h1 className="title">Conheça nossos serviços e encontre <mark>o que você precisa.</mark></h1>
                 <p>Explore os vários serviços que temos disponível.</p>
+                {/* puxar dados da API */}
                 <section className="services">
-                    { /* Lógica para puxar dados da API e exibir dois serviços aleatórios */ }
-                    <section className="service">
-                        <img src={ null } alt="" />
-                        <h2>Corte de cabelo</h2>
-                        <p className="categoria">Estética</p>
-                    </section>
-                    <section className="service">
-                        <img src={ null } alt="" />
-                        <h2>Pedicure</h2>
-                        <p className="categoria">Pés</p>
-                    </section>
+                    {services.map((service) => (
+                        <section key={service.id} className="service">
+                            <img src={service.imageUrl ?? null} alt="" />
+                            <h2 className="subtitle">{service.service_name}</h2>
+                            <p className={`categoria ${service.category?.toLowerCase()}`}>{service.category}</p>
+                        </section>
+                    ))}
                 </section>
             </section>
             <section className="section-cta">
