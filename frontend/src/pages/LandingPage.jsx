@@ -34,7 +34,6 @@ const LandingPage = () => {
 
                 const shuffle = data.sort(() => Math.random() - 0.5)
                 setProfessionals(shuffle.slice(0, 2))
-                console.log(shuffle)
             } catch(err) {
                 console.error("Erro ao buscar profissionais.", err)
             }

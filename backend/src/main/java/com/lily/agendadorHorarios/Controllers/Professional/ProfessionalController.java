@@ -32,7 +32,7 @@ public class ProfessionalController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfessionalResponseDTO> buscarPorId(@PathVariable Long id, @RequestBody ProfessionalRequestDTO dto) {
+    public ResponseEntity<ProfessionalResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 

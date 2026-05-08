@@ -23,6 +23,8 @@ public class ProfessionalService {
     public ProfessionalResponseDTO create(ProfessionalRequestDTO dto) {
         ProfessionalEntity professional = new ProfessionalEntity();
         professional.setName(dto.name());
+        professional.setImageUrl(dto.imageUrl());
+        professional.setProfession(dto.profession());
         ProfessionalEntity saved = professionalRepository.save(professional);
         return toDTO(saved);
     }
@@ -60,6 +62,8 @@ public class ProfessionalService {
                 .orElseThrow(() -> new NotFoundException("Profissional não encontrado!"));
 
         professional.setName(dto.name());
+        professional.setProfession(dto.profession());
+        professional.setImageUrl(dto.imageUrl());
         return toDTO(professionalRepository.save(professional));
     }
 
