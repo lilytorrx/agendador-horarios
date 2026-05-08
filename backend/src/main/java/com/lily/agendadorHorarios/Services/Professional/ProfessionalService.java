@@ -47,9 +47,7 @@ public class ProfessionalService {
 
         shuffle(professionals);
 
-        return professionals.stream()
-                .limit(2)
-                .toList();
+        return professionals;
     }
 
     public ProfessionalResponseDTO buscarPorId(Long id) {

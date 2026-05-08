@@ -57,9 +57,7 @@ public class ServiceService {
 
             shuffle(services);
 
-            return services.stream()
-                .limit(2)
-                .toList();
+            return services;
     }
 
     public void deletar(Long id) {

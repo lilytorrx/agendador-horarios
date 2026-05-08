@@ -82,7 +82,15 @@ nav ul li a{
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
+}
+
+.carousel-track-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2.75rem;
 }
 
 .carousel-dots {
@@ -97,20 +105,53 @@ nav ul li a{
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    background-color: #d1d5db;
+    background-color: var(--label);
+    opacity: 0.45;
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
 }
 
 .carousel-dot.active {
     background-color: var(--main_color);
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .carousel-arrow {
-    margin: 1rem;
+    border: none;
+    background-color: var(--white);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
-    align-items: stretch;
+    align-items: center;
+    box-shadow: var(--box_shadow);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--main_color);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+    transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-arrow:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.carousel-arrow-left {
+    left: 0;
+}
+
+.carousel-arrow-right {
+    right: 0;
 }
 
 .professionals {
@@ -164,4 +205,16 @@ nav ul li a{
 
 .section-cta .title {
     text-align: left!important;
+}
+
+@media (min-width: 1024px) {
+    .section-services,
+    .section-professionals {
+        padding: 3rem 4rem;
+    }
+
+    .services,
+    .professionals {
+        gap: 24px;
+    }
 }
