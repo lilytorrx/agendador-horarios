@@ -141,6 +141,8 @@ DB_PASSWORD=sua_senha
 SECRET_KEY=sua_chave_secreta
 ```
 
+> ⚠️ **Nunca versione o arquivo `.env`.** Certifique-se de que ele está listado no `.gitignore`.
+
 ---
 
 ## Como executar localmente
@@ -184,38 +186,39 @@ npm run dev
 
 | Método | Rota | Descrição | Auth |
 |---|---|---|---|
-| POST | `/auth/register` | Cadastra usuário 
-| POST | `/auth/login` | Autentica e retorna JWT 
+| POST | `/auth/register` | Cadastra usuário | ❌ |
+| POST | `/auth/login` | Autentica e retorna JWT | ❌ |
+
 ### Usuário
 
 | Método | Rota | Descrição | Auth |
 |---|---|---|---|
-| GET | `/users` | Consulta dados do usuário autenticado
-| PUT | `/users` | Edita dados do usuário autenticado 
+| GET | `/users` | Consulta dados do usuário autenticado | ✅ |
+| PUT | `/users` | Edita dados do usuário autenticado | ✅ |
 
 ### Agendamentos
 
 | Método | Rota | Descrição | Auth |
 |---|---|---|---|
-| POST | `/schedules` | Cria agendamento 
-| GET | `/schedules/user/{userId}` | Lista por usuário 
-| GET | `/schedules/status/{status}` | Lista por status 
-| GET | `/schedules/data?start=...&end=...` | Lista por intervalo de data 
-| PATCH | `/schedules/{id}/cancelar` | Cancela agendamento 
+| POST | `/schedules` | Cria agendamento | ✅ |
+| GET | `/schedules/user/{userId}` | Lista por usuário | ✅ |
+| GET | `/schedules/status/{status}` | Lista por status | ✅ |
+| GET | `/schedules/data?start=...&end=...` | Lista por intervalo de data | ✅ |
+| PATCH | `/schedules/{id}/cancelar` | Cancela agendamento | ✅ |
 
 ### Serviços (público)
 
 | Método | Rota | Descrição | Auth |
 |---|---|---|---|
-| GET | `/services/public` | Lista 2 serviços aleatórios para a landing page
+| GET | `/services/public` | Lista 2 serviços aleatórios para a landing page | ❌ |
 
 ### Administrativo (ADMIN)
 
 | Método | Rota | Descrição | Auth |
 |---|---|---|---|
-| * | `/professionals/**` | Gestão de profissionais | ADMIN |
-| * | `/services/**` | Gestão de serviços | ADMIN |
-| * | `/professional-services/**` | Gestão de vínculos | ADMIN |
+| * | `/professionals/**` | Gestão de profissionais | ✅ ADMIN |
+| * | `/services/**` | Gestão de serviços | ✅ ADMIN |
+| * | `/professional-services/**` | Gestão de vínculos | ✅ ADMIN |
 
 ---
 
