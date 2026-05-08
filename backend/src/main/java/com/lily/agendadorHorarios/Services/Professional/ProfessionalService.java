@@ -54,6 +54,6 @@ public class ProfessionalService {
     }
 
     private ProfessionalResponseDTO toDTO(ProfessionalEntity entity) {
-        return new ProfessionalResponseDTO(entity.getId(), entity.getName());
+        return new ProfessionalResponseDTO(entity.getId(), entity.getName(), entity.getImageUrl(), entity.getProfession());
     }
 }

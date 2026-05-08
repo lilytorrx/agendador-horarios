@@ -19,6 +19,10 @@ public class ProfessionalEntity {
 
     private String name;
 
+    private String profession;
+
+    private String imageUrl;
+
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     private List<ProfessionalServiceEntity> professionalServices;
 }
