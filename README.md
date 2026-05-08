@@ -11,10 +11,11 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white" />
   <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
-  <img src="https://img.shields.io/badge/Spring_Security-6DB99F?style=for-the-badge&logo=springsecurity&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white" />
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" />
   <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white" />
 </p>
 
 ---
@@ -70,7 +71,11 @@ Autenticação JWT
 | Tecnologia | Descrição |
 |---|---|
 | React | Framework de interface |
-| Validação client-side | Verificação de dados antes do envio |
+| React Router | Roteamento e navegação |
+| Context API | Gerenciamento de estado global (autenticação) |
+| Lucide React | Biblioteca de ícones |
+| react-icons | Ícones complementares (ex: Google) |
+| CSS | Estilização mobile-first |
 
 ---
 
@@ -88,6 +93,8 @@ O schema é composto pelas seguintes tabelas:
 
 O status dos agendamentos é controlado pelo enum `ScheduleStatus`. O sistema possui prevenção de double-booking e atualização automática de status via job agendado.
 
+A tabela `services` possui o campo `image_url` para exibição de imagens dos serviços na landing page.
+
 ---
 
 ## Autenticação
@@ -98,6 +105,7 @@ A autenticação utiliza **Spring Security + JWT**:
 ```
 POST /auth/register
 POST /auth/login
+GET  /services/public
 ```
 
 **Rotas autenticadas** — exigem header:
@@ -132,6 +140,9 @@ DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
 SECRET_KEY=sua_chave_secreta
 ```
+
+> ⚠️ **Nunca versione o arquivo `.env`.** Certifique-se de que ele está listado no `.gitignore`.
+
 ---
 
 ## Como executar localmente
@@ -195,6 +206,12 @@ npm run dev
 | GET | `/schedules/data?start=...&end=...` | Lista por intervalo de data | ✅ |
 | PATCH | `/schedules/{id}/cancelar` | Cancela agendamento | ✅ |
 
+### Serviços (público)
+
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/services/public` | Lista 2 serviços aleatórios para a landing page | ❌ |
+
 ### Administrativo (ADMIN)
 
 | Método | Rota | Descrição | Auth |
@@ -211,19 +228,36 @@ npm run dev
 agendador-horarios/
 ├── backend/
 │   ├── src/
-│   ├── .env          (não está no repositório)
-│   ├── .env.example   
+│   ├── .env                ← não versionar
+│   ├── .env.example
 │   └── pom.xml
 └── frontend/
     ├── src/
-    ├──── assets/
-    ├────── css/
-    ├────── img/
-    ├──── components/
-    ├──── pages/
-    ├────── auth/
+    │   ├── assets/
+    │   │   ├── css/
+    │   │   └── img/
+    │   ├── components/
+    │   ├── context/
+    │   │   └── AuthContext.jsx
+    │   ├── pages/
+    │   │   ├── auth/
+    │   │   │   ├── Login.jsx
+    │   │   │   └── Register.jsx
+    │   │   └── LandingPage.jsx
+    │   ├── services/
+    │   │   ├── api.js
+    │   │   ├── authService.js
+    │   │   ├── userService.js
+    │   │   ├── scheduleService.js
+    │   │   ├── professionalService.js
+    │   │   ├── serviceService.js
+    │   │   └── professionalServiceLink.js
+    │   └── utils/
+    │       ├── isAuth.js
+    │       └── cpf.js
     └── package.json
 ```
+
 ---
 
 ## Ferramentas utilizadas no desenvolvimento
