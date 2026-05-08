@@ -72,8 +72,54 @@ nav ul li a{
     margin: 1rem;
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 1rem;
+}
+
+.carousel-dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: #d1d5db;
+}
+
+.carousel-dot.active {
+    background-color: var(--main_color);
+}
+
+.carousel-arrow {
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.professionals {
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
 }
 
 .categoria {

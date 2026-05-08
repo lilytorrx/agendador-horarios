@@ -1,4 +1,6 @@
 package com.lily.agendadorHorarios.DTOs.Professional;
 
-public record ProfessionalResponseDTO(Long id, String name, String imageUrl, String profession) {
+import java.util.List;
+
+public record ProfessionalResponseDTO(Long id, String name, String imageUrl, String profession, List<String> services) {
 }

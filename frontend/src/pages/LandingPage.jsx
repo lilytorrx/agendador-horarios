@@ -1,5 +1,5 @@
 import { Route, Routes, Link, useNavigate } from "react-router-dom"
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
 import { getPublicServices } from "../services/serviceService"
 import { getPublicProfessionals } from "../services/professionalService"
 
@@ -12,13 +12,43 @@ const LandingPage = () => {
     const navigate = useNavigate()
     const [services, setServices] = useState([])
     const [professionals, setProfessionals] = useState([])
+    const [itemsPerSection, setItemsPerSection] = useState(window.innerWidth >= 1024 ? 4 : 2)
+    const isDesktop = itemsPerSection === 4
+    const [servicePage, setServicePage] = useState(0)
+    const [professionalPage, setProfessionalPage] = useState(0)
+
+    const getPageItems = (items, page) => {
+        const start = page * itemsPerSection
+        const end = start + itemsPerSection
+        return items.slice(start, end)
+    }
+
+    const getTotalPages = (items) => {
+        if(!items.length) return 1
+        return Math.ceil(items.length / itemsPerSection)
+    }
+
+    const renderDots = (totalPages, activePage, onClick) => {
+        <div className="carousel-dots">
+            {Array.from({length : totalPages }).map((_, index) => (
+                <button 
+                    key={index}
+                    type="button"
+                    aria-label={`Ir para a seção ${index + 1}`}
+                    className={`carousel-dot $activePage === index ? "active" : ""`}
+                    onClick={() => onClick(index)}
+                ></button>
+            ))}
+        </div>
+    }
+
     useEffect(() => {
         const fetchServices = async () => {
             try {
                 const data = await getPublicServices() 
             
-                const shuffle = data.sort(() => Math.random() - 0.5)
-                setServices(shuffle.slice(0, 2))
+                const shuffle = [...data].sort(() => Math.random() - 0.5)
+                setServices(shuffle)
             } catch(err) {
                 console.error("Erro ao buscar serviços.", err)
             } 
@@ -32,8 +62,8 @@ const LandingPage = () => {
             try {
                 const data = await getPublicProfessionals()
 
-                const shuffle = data.sort(() => Math.random() - 0.5)
-                setProfessionals(shuffle.slice(0, 2))
+                const shuffle = [...data].sort(() => Math.random() - 0.5)
+                setProfessionals(shuffle)
             } catch(err) {
                 console.error("Erro ao buscar profissionais.", err)
             }
@@ -41,6 +71,20 @@ const LandingPage = () => {
 
         fetchProfessionals()
     }, [])
+
+    useEffect(() => {
+        const handleResize = () => {
+            setItemsPerSection(window.innerWidth == 1024 ? 4 : 2)
+        }
+
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+
+    useEffect(() => {
+        const maxProfessionalPage = getTotalPages(professionals) - 1
+        if(professionalPage > maxProfessionalPage) setProfessionalPage(maxProfessionalPage)
+    }, [itemsPerSection, professionals, professionalPage])
 
     return (
         <section className="landing-page">
@@ -69,8 +113,26 @@ const LandingPage = () => {
                 <h1 className="title">Conheça nossos serviços e encontre <mark>o que você precisa.</mark></h1>
                 <p>Explore os vários serviços que temos disponível.</p>
                 {/* puxar dados da API */}
+                <div className="carousel-controls">
+                    {isDesktop && (
+                        <button
+                            type="button"
+                            className="carousel-arrow"
+                            onClick={() => setServicePage((prev) => Math.max(prev - 1, 0))}
+                        >&#10094</button>
+                    )
+                }
+                {renderDots(getTotalPages(services), servicePage, setServicePage)}
+                {isDesktop && (
+                    <button
+                        type="button"
+                        className="carousel-arrow"
+                        onClick={() => setServicePage((prev) => Math.max(prev + 1, getTotalPages(services) - 1))}
+                    >&#10095;</button>
+                )}
+                </div>
                 <section className="services">
-                    {services.map((service) => (
+                    {getPageItems(services, servicePage).map((service) => (
                         <section key={service.id} className="service">
                             <img className="serviceImage" src={service.imageUrl ?? null} alt={service.serviceName} />
                             <h2 className="serviceName">{service.serviceName}</h2>
@@ -95,15 +157,38 @@ const LandingPage = () => {
             <section className="section-professionals">
                 <h1 className="title">Os melhores profissionais trabalham <mark>aqui.</mark></h1>
                 <p>Encontre <mark>profissionais certificados</mark> e renomados no ramo de forma simples e prática.</p>
+                <div className="carousel-controls">
+                    {isDesktop && (
+                        <button
+                            type="button"
+                            className="carousel-arrow"
+                            onClick={() => setProfessionalPage((prev) => Math.max(prev - 1, 0))}
+                        >
+                            &#10094;
+                        </button>
+                    )}
+                    {renderDots(getTotalPages(professionals), professionalPage, setProfessionalPage)}
+                    {isDesktop && (
+                        <button
+                            type="button"
+                            className="carousel-arrow"
+                            onClick={() => setProfessionalPage((prev) => Math.min(prev + 1, getTotalPages(professionals) - 1))}
+                        >
+                            &#10095;
+                        </button>
+                    )}
+                </div>
                 <section className="professionals">
-                    {professionals.map((professional) => (
+                    {getPageItems(professionals, professionalPage).map((professional) => (
                         <section key={professional.id} className="professional">
                             <img src={ professional.imageUrl ?? null } className="professionalImage" alt="" />
                             <p className="professionalName">{professional.name}</p>
                             <p className="profession">{professional.profession}</p>
                             <p className="professional-services"><strong>Serviços disponíveis:</strong></p>
                             <p className="service">
-                                Manicure, Pedicure, Alongamento de unhas, Nail art
+                                {professional.services?.length
+                                    ? professional.services.join(", ")
+                                    : "Nenhum serviço disponível"}
                             </p>
                             <Button
                                 onClick={() => navigate("/Register")}

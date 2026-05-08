@@ -4,6 +4,8 @@ import com.lily.agendadorHorarios.DTOs.Professional.ProfessionalRequestDTO;
 import com.lily.agendadorHorarios.DTOs.Professional.ProfessionalResponseDTO;
 import com.lily.agendadorHorarios.DTOs.Service.ServiceResponseDTO;
 import com.lily.agendadorHorarios.Infrastructure.Entity.Professional.ProfessionalEntity;
+import com.lily.agendadorHorarios.Infrastructure.Entity.ProfessionalService.ProfessionalServiceEntity;
+import com.lily.agendadorHorarios.Infrastructure.Entity.Service.ServiceEntity;
 import com.lily.agendadorHorarios.Infrastructure.Exceptions.NotFoundException;
 import com.lily.agendadorHorarios.Infrastructure.Repositories.ProfessionalRepository;
 import lombok.RequiredArgsConstructor;
@@ -75,6 +77,15 @@ public class ProfessionalService {
     }
 
     private ProfessionalResponseDTO toDTO(ProfessionalEntity entity) {
-        return new ProfessionalResponseDTO(entity.getId(), entity.getName(), entity.getImageUrl(), entity.getProfession());
+        List<String> services = entity.getProfessionalServices() == null
+                ? List.of()
+                : entity.getProfessionalServices().stream()
+                .map(ProfessionalServiceEntity::getService)
+                .filter(java.util.Objects::nonNull)
+                .map(ServiceEntity::getServiceName)
+                .distinct()
+                .toList();
+
+        return new ProfessionalResponseDTO(entity.getId(), entity.getName(), entity.getImageUrl(), entity.getProfession(), services);
     }
 }
