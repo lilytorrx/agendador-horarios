@@ -57,8 +57,8 @@ const LandingPage = () => {
                     {services.map((service) => (
                         <section key={service.id} className="service">
                             <img className="serviceImage" src={service.imageUrl ?? null} alt={service.serviceName} />
-                            <h2 className="subtitle">{service.serviceName}</h2>
-                            <p className={`categoria ${service.category?.toLowerCase()}`}>{service.category}</p>
+                            <h2 className="serviceName">{service.serviceName}</h2>
+                            <p className={`subtitle categoria ${service.category?.toLowerCase()}`}>{service.category}</p>
                         </section>
                     ))}
                 </section>

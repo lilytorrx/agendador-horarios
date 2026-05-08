@@ -47,9 +47,49 @@ nav ul li a{
 }
 
 .section-services {
-    padding: 1rem;
+    padding: 2rem 1rem;
     text-align: center;
 }
 
 .serviceImage {
+    width: 180px;
+    border-radius: 10px;
+    height: 100px;
+    object-fit: cover;
+    box-shadow: var(--box_shadow);
+    margin-bottom: 0.5rem;
+}
+
+.serviceName {
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.services {
+    margin: 1rem;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.categoria {
+    border-radius: 10px;
+    width: fit-content;
+    padding: 0.5rem;
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.estética {
+    background-color: var(--category_box_estetica);
+    color: var(--category_text_estetica);
+}
+
+.unhas {
+    background-color: var(--category_box_feet);
+    color: var(--category_text_feet);
 }

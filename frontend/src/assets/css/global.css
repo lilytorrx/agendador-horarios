@@ -25,11 +25,19 @@ mark {
 
     --font: "Roboto", sans-serif;
 
+    --box_shadow:rgba(136, 60, 229, 0.281) 0px 2px 30px;
+
     --title_mobile: 20px;
     --title_desktop: 32px;
 
     --body_mobile: 14px;
     --body_desktop: 24px;
+
+    --category_box_estetica: #DFE9FF;
+    --category_text_estetica: #262470;
+
+    --category_box_feet: #DFFFF4;
+    --category_text_feet: #287646;
 }
 
 .btn {
