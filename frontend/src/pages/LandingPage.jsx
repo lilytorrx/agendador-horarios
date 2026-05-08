@@ -68,7 +68,7 @@ const LandingPage = () => {
                     <h1 className="title">Agendar nunca foi <mark>tão simples.</mark></h1>
                     <p>Cansado de esperar em filas e mais filas para conseguir um angedamento? Com a AgendIn, você se cadastra na plataforma e já tem os horários disponíveis na palma da sua mão. Chega de <mark>filas, estresse e frustração</mark> para seu serviço!</p>
                 </div>
-                <div>
+                <div className="cta-image">
                     <Button
                         onClick={() => navigate("/Register")}
                         children="Criar conta"

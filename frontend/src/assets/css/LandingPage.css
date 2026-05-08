@@ -93,3 +93,27 @@ nav ul li a{
     background-color: var(--category_box_feet);
     color: var(--category_text_feet);
 }
+
+.section-cta {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.cta-image {
+    background-image: url("https://i.imgur.com/NxKlb07.png");
+    height: 250px;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: var(--box_shadow);
+}
+
+.section-cta .title {
+    text-align: left!important;
+}

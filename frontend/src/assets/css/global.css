@@ -42,7 +42,7 @@ mark {
 
 .btn {
     border-radius: 20px;
-    padding: 1rem;
+    padding: 0.5rem;
     color: var(--white);
     background-color: var(--main_color);
 }
