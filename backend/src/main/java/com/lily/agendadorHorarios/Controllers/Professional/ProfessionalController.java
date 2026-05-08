@@ -26,6 +26,11 @@ public class ProfessionalController {
         return ResponseEntity.ok(service.listarTodos());
     }
 
+    @GetMapping("/public")
+    public ResponseEntity<List<ProfessionalResponseDTO>> getProfessionalsPublic() {
+        return ResponseEntity.ok(service.getProfessionalsPublic());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProfessionalResponseDTO> buscarPorId(@PathVariable Long id, @RequestBody ProfessionalRequestDTO dto) {
         return ResponseEntity.ok(service.buscarPorId(id));

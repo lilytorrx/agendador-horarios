@@ -1,6 +1,7 @@
 import { Route, Routes, Link, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import { getPublicServices } from "../services/serviceService"
+import { getPublicProfessionals } from "../services/professionalService"
 
 import Button from "../components/Button"
 import Logo from "../assets/img/imagotipo.png"
@@ -10,7 +11,7 @@ import "../assets/css/LandingPage.css"
 const LandingPage = () => {
     const navigate = useNavigate()
     const [services, setServices] = useState([])
-
+    const [professionals, setProfessionals] = useState([])
     useEffect(() => {
         const fetchServices = async () => {
             try {
@@ -24,6 +25,22 @@ const LandingPage = () => {
         }
 
         fetchServices()
+    }, [])
+
+    useEffect(() => {
+        const fetchProfessionals = async () => {
+            try {
+                const data = await getPublicProfessionals()
+
+                const shuffle = data.sort(() => Math.random() - 0.5)
+                setProfessionals(shuffle.slice(0, 2))
+                console.log(shuffle)
+            } catch(err) {
+                console.error("Erro ao buscar profissionais.", err)
+            }
+        }
+
+        fetchProfessionals()
     }, [])
 
     return (
@@ -80,35 +97,22 @@ const LandingPage = () => {
                 <h1 className="title">Os melhores profissionais trabalham <mark>aqui.</mark></h1>
                 <p>Encontre <mark>profissionais certificados</mark> e renomados no ramo de forma simples e prática.</p>
                 <section className="professionals">
-                    { /* Lógica para puxar dados da API e exibir dois profissionais aleatórios em carrossel */ }
-                    <section className="professional">
-                        <img src={ null } alt="" />
-                        <p className="name">Nathaniel Nogueira</p>
-                        <p className="profession">Nail Designer</p>
-                        <p className="professional-services"><strong>Serviços disponíveis:</strong></p>
-                        <p className="service">
-                            Manicure, Pedicure, Alongamento de unhas, Nail art
-                        </p>
-                        <Button
-                            onClick={() => navigate("/Register")}
-                            children="Agendar agora"
-                            className="btn mobile"
-                        />
-                    </section>
-                    <section className="professional">
-                        <img src={ null } alt="" />
-                        <p className="name">Jaqueline Silva</p>
-                        <p className="profession">Esteticista</p>
-                        <p className="professional-services"><strong>Serviços disponíveis:</strong></p>
-                        <p className="service">
-                            Limpeza de pele, Hidratação facial, Massagem, Depilação
-                        </p>
-                        <Button
-                            onClick={() => navigate("/Register")}
-                            children="Agendar agora"
-                            className="btn mobile"
-                        />
-                    </section>
+                    {professionals.map((professional) => (
+                        <section key={professional.id} className="professional">
+                            <img src={ professional.imageUrl ?? null } className="professionalImage" alt="" />
+                            <p className="professionalName">{professional.name}</p>
+                            <p className="profession">{professional.profession}</p>
+                            <p className="professional-services"><strong>Serviços disponíveis:</strong></p>
+                            <p className="service">
+                                Manicure, Pedicure, Alongamento de unhas, Nail art
+                            </p>
+                            <Button
+                                onClick={() => navigate("/Register")}
+                                children="Agendar agora"
+                                className="btn mobile"
+                            />
+                        </section>
+                    ))}
                 </section>
             </section>
             <section className="FAQ">

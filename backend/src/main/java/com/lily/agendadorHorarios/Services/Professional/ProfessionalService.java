@@ -2,6 +2,7 @@ package com.lily.agendadorHorarios.Services.Professional;
 
 import com.lily.agendadorHorarios.DTOs.Professional.ProfessionalRequestDTO;
 import com.lily.agendadorHorarios.DTOs.Professional.ProfessionalResponseDTO;
+import com.lily.agendadorHorarios.DTOs.Service.ServiceResponseDTO;
 import com.lily.agendadorHorarios.Infrastructure.Entity.Professional.ProfessionalEntity;
 import com.lily.agendadorHorarios.Infrastructure.Exceptions.NotFoundException;
 import com.lily.agendadorHorarios.Infrastructure.Repositories.ProfessionalRepository;
@@ -9,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.shuffle;
 
 
 @Service
@@ -29,6 +33,19 @@ public class ProfessionalService {
                 .map(this::toDTO)
                 .toList();
 
+    }
+
+    public List<ProfessionalResponseDTO> getProfessionalsPublic() {
+        List<ProfessionalResponseDTO> professionals = professionalRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+
+        shuffle(professionals);
+
+        return professionals.stream()
+                .limit(2)
+                .toList();
     }
 
     public ProfessionalResponseDTO buscarPorId(Long id) {

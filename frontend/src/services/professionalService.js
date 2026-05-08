@@ -1,5 +1,8 @@
 import { apiFetch } from "./api";
 
+// GET /professionals/public
+export const getPublicProfessionals = () => apiFetch("/professionals/public")
+
 // ADMIN ONLY
 
 // GET /professionals

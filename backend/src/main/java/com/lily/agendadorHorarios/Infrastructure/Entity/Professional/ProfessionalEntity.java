@@ -21,6 +21,7 @@ public class ProfessionalEntity {
 
     private String profession;
 
+    @Column(name="image_url")
     private String imageUrl;
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
