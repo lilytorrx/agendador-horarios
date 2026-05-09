@@ -1,4 +1,10 @@
-export default function isAuth() {
-    const token = localStorage.getItem("token");
-    return !!token && token !== "";
+import { apiFetch } from "../services/api";
+
+export async function checkAuth() {
+    try {
+        await apiFetch("/users")
+        return true
+    } catch {
+        return false
+    }
 }

@@ -1,8 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom"
 import isAuth from "../utils/isAuth"
+import { useState, useEffect } from "react"
 
 const GuestRoute = () => {
-    return isAuth() ? <Navigate to="/dashboard" replace/> : <Outlet/>
+    const [auth, setAuth] = useState(null)
+
+    useEffect(() => {
+        checkAuth().then(setAuth)
+    }, [])
+
+    if (auth === null) return null
+    return auth ? <Navigate to="/dashboard" replace /> : <Outlet />
 }
 
 export default GuestRoute

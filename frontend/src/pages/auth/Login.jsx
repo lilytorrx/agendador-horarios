@@ -9,7 +9,7 @@ import Logo from "../../assets/img/imagotipo.png";
 import Button from "../../components/Button";
 
 const Login = () => {
-  const { saveToken } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -38,8 +38,8 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const data = await loginRequest(email, password);
-      saveToken(data.token);
+      await loginRequest(email, password);
+      login();
       navigate("/dashboard");
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");

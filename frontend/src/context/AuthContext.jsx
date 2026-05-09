@@ -1,23 +1,20 @@
 import { createContext, useContext, useState } from "react"
+import { apiFetch } from "../services/api"
 
 const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
-    // Já lê o token do LocalStorage e persiste entre refreshs
-    const [token, setToken] = useState(() => localStorage.getItem("token") ?? null) 
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-    const saveToken = (newToken) => {
-        localStorage.getItem("token", newToken)
-        setToken(newToken)
-    }
+    const login = () => setIsAuthenticated(true)
 
-    const clearToken = () => {
-        localStorage.removeItem("token")
-        setToken(null)
+    const logout = async () => {
+        await apiFetch("/auth/logout", { method: "POST" })
+        setIsAuthenticated(false)
     }
 
     return (
-        <AuthContext.Provider value = {{ token, saveToken, clearToken }}>
+        <AuthContext.Provider value = {{ isAuthenticated, login, logout }}>
             {children}
         </AuthContext.Provider>
     )

@@ -2,17 +2,15 @@
 const API_URL = "http://localhost:8080"
 
 export async function apiFetch(endpoint, options = {}) {
-    const token = localStorage.getItem("token")
-
     const headers = {
         "Content-Type": "application/json",
-        ...(token && { Authorization: `Bearer ${token}`}),
-        ...options.headers,
+        ...options.headers
     }
 
     const response = await fetch(`${API_URL}${endpoint}`, {
         ...options,
-        headers
+        headers,
+        credentials: "include"
     }) 
 
     // 401 - status erro token inválido ou expirado - redireciona
@@ -28,7 +26,7 @@ export async function apiFetch(endpoint, options = {}) {
     }
 
     // 204 No content - sem corpo
-    if (response === 204) return null
+    if (response.status === 204) return null
     
     return response.json()
 }

@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 
 import Button from "../../components/Button";
 import Logo from "../../assets/img/imagotipo.png";
+import { useAuth } from "../../context/AuthContext";
 
 const Register = () => {
+  const { login } = useAuth()
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -63,7 +65,8 @@ const Register = () => {
 
     try {
       await registerRequest(name, email, password, cpf);
-      navigate("/login");
+      login()
+      navigate("/dashboard")
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");
     } finally {

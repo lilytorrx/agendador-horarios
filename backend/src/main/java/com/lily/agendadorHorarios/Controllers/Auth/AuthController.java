@@ -7,6 +7,8 @@ import com.lily.agendadorHorarios.Infrastructure.Entity.User.UserEntity;
 import com.lily.agendadorHorarios.Infrastructure.Exceptions.NotFoundException;
 import com.lily.agendadorHorarios.Infrastructure.Repositories.UserRepository;
 import com.lily.agendadorHorarios.Services.Security.TokenService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,18 +25,28 @@ public class AuthController {
     private final TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequestDTO body) {
+    public ResponseEntity<Void> login(@RequestBody LoginRequestDTO body, HttpServletResponse response){
         UserEntity user = this.userRepository.findByEmail(body.email()).orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
+
         if(passwordEncoder.matches(body.password(), user.getPassword())) {
             String token = this.tokenService.generateToken(user);
-            return ResponseEntity.ok(new ResponseDTO(user.getName(), token));
+
+            Cookie cookie = new Cookie("token", token);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 8);
+
+            response.addCookie(cookie);
+
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterRequestDTO body) {
+    public ResponseEntity<Void> register(@RequestBody RegisterRequestDTO body, HttpServletResponse response) {
         Optional<UserEntity> user = this.userRepository.findByEmail(body.email());
         if(user.isEmpty()) {
             UserEntity newUser = new UserEntity();
@@ -44,12 +56,30 @@ public class AuthController {
             newUser.setCpf(body.cpf());
             newUser.setPassword(passwordEncoder.encode(body.password()));
 
-            UserEntity saved = this.userRepository.save(newUser);
-            System.out.println("USUÁRIO SALVO: " + saved);
+            this.userRepository.save(newUser);
             String token = tokenService.generateToken(newUser);
-            return ResponseEntity.ok(new ResponseDTO(newUser.getName(), token));
+
+            Cookie cookie = new Cookie("token", token);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 8);
+            response.addCookie(cookie);
+
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return ResponseEntity.ok().build();
     }
 
 }
