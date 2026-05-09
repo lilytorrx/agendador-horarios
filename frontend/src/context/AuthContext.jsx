@@ -5,16 +5,21 @@ const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [role, setRole] = useState(null)
 
-    const login = () => setIsAuthenticated(true)
+    const login = (userRole) => {
+        setIsAuthenticated(true)
+        setRole(userRole)
+    }
 
     const logout = async () => {
         await apiFetch("/auth/logout", { method: "POST" })
         setIsAuthenticated(false)
+        setRole(null)
     }
 
     return (
-        <AuthContext.Provider value = {{ isAuthenticated, login, logout }}>
+        <AuthContext.Provider value = {{ isAuthenticated, role, login, logout }}>
             {children}
         </AuthContext.Provider>
     )

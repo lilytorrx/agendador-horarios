@@ -31,13 +31,13 @@ public class UserService {
         return toDTO(userRepository.save(user));
     }
 
-    private UserResponseDTO toDTO(UserEntity userEntity){
-        return new UserResponseDTO(
-                userEntity.getId(),
-                userEntity.getName(),
-                userEntity.getEmail(),
-                userEntity.getRole(),
-                userEntity.getCpf()
-        );
-    }
+        private UserResponseDTO toDTO(UserEntity userEntity){
+            return new UserResponseDTO(
+                    userEntity.getId(),
+                    userEntity.getName(),
+                    userEntity.getEmail(),
+                    userEntity.getRole(),
+                    userEntity.getCpf()
+            );
+        }
 }

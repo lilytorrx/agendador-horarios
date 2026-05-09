@@ -1,7 +1,7 @@
 import { apiFetch } from "./api";
 
 // GET /users 
-export const getUserData = () => apiFetch("/users")
+export const getUser = () => apiFetch("/users")
 
 // PUT /users 
 export const updateUser = (data) => apiFetch("/users", {

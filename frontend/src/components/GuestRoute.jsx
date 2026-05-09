@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom"
-import isAuth from "../utils/isAuth"
+import { checkAuth } from "../utils/isAuth"
 import { useState, useEffect } from "react"
 
 const GuestRoute = () => {

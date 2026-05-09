@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import Logo from "../../assets/img/imagotipo.png";
 import { useAuth } from "../../context/AuthContext";
+import { getUser } from "../../services/userService"
 
 const Register = () => {
   const { login } = useAuth()
@@ -64,8 +65,9 @@ const Register = () => {
     setLoading(true);
 
     try {
-      await registerRequest(name, email, password, cpf);
-      login()
+        await registerRequest(name, email, password, cpf);
+      const user = await getUser()
+      login(user.role)
       navigate("/dashboard")
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");

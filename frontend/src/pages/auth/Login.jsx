@@ -7,6 +7,7 @@ import { loginRequest } from "../../services/authService";
 
 import Logo from "../../assets/img/imagotipo.png";
 import Button from "../../components/Button";
+import { getUser } from "../../services/userService"
 
 const Login = () => {
   const { login } = useAuth();
@@ -38,8 +39,8 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await loginRequest(email, password);
-      login();
+      const data = await loginRequest(email, password);
+      login(data.role);
       navigate("/dashboard");
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");
