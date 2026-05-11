@@ -162,6 +162,28 @@ nav ul li a{
     align-items: stretch;
 }
 
+
+.carousel-animated {
+    animation: carouselSlideIn 0.35s ease;
+    cursor: grab;
+    user-select: none;
+}
+
+.carousel-animated:active {
+    cursor: grabbing;
+}
+
+@keyframes carouselSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .categoria {
     border-radius: 10px;
     width: fit-content;
