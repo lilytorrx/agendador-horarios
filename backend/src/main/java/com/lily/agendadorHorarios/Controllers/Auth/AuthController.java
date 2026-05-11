@@ -25,7 +25,7 @@ public class AuthController {
     private final TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginRequestDTO body, HttpServletResponse response){
+    public ResponseEntity<ResponseDTO> login(@RequestBody LoginRequestDTO body, HttpServletResponse response){
         UserEntity user = this.userRepository.findByEmail(body.email()).orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
 
         if(passwordEncoder.matches(body.password(), user.getPassword())) {
@@ -33,13 +33,13 @@ public class AuthController {
 
             Cookie cookie = new Cookie("token", token);
             cookie.setHttpOnly(true);
-            cookie.setSecure(true);
+            cookie.setSecure(false);
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 8);
 
             response.addCookie(cookie);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(new ResponseDTO(user.getName(), user.getRole().toString()));
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -61,7 +61,7 @@ public class AuthController {
 
             Cookie cookie = new Cookie("token", token);
             cookie.setHttpOnly(true);
-            cookie.setSecure(true);
+            cookie.setSecure(false);
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 8);
             response.addCookie(cookie);

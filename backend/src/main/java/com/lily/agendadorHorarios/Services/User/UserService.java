@@ -35,9 +35,7 @@ public class UserService {
             return new UserResponseDTO(
                     userEntity.getId(),
                     userEntity.getName(),
-                    userEntity.getEmail(),
-                    userEntity.getRole(),
-                    userEntity.getCpf()
+                    userEntity.getRole()
             );
         }
 }

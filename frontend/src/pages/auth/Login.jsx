@@ -40,7 +40,9 @@ const Login = () => {
 
     try {
       const data = await loginRequest(email, password);
+      console.log("data do login:", data)
       login(data.role);
+      console.log("role passado pro contexto:", data.role)
       navigate("/dashboard");
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");
