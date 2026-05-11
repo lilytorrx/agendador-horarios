@@ -224,12 +224,12 @@ const LandingPage = () => {
                         <img src={Logo} alt="" className="logo" />
                         <p>Rua Teste 123, Bairro Legal - Brasil</p>
                     </div>
-                    <div>
+                    <div className="contact">
                         <p>agendin@email.com</p>
                         <p>Instagram</p>
                     </div>
                 </div>
-                <p>Agendin ₢2026. Todos os direitos reservados.</p>
+                <p className="copy">Agendin ₢2026. Todos os direitos reservados.</p>
             </footer>
         </section>
     )
