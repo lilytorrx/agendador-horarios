@@ -6,6 +6,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 
 import Button from "../components/Button"
 import Logo from "../assets/img/imagotipo.png"
+import Accordion from "../components/Accordion"
 
 import "../assets/css/LandingPage.css"
 
@@ -19,6 +20,17 @@ const LandingPage = () => {
     const [servicePage, setServicePage] = useState(0)
     const [professionalPage, setProfessionalPage] = useState(0)
     const [dragStartX, setDragStartX] = useState(null)
+
+    const faqItems = [
+        {
+            question: "Posso cancelar meu agendamento?",
+            answer: "Sim. O sistema possui uma funcionalidade de cancelamento de agendamentos e reembolso automático."
+        },
+        {
+            question: "Como recebo a confirmação do agendamento?",
+            answer: "Após agendar, você receberá um e-mail de confirmação com os detalhes do seu agendamento. Também é possível acessar seus agendamentos através do seu perfil na plataforma."
+        }
+    ]
 
     const getPageItems = (items, page) => {
         const start = page * itemsPerSection
@@ -201,9 +213,10 @@ const LandingPage = () => {
                 </section>
                 <div className="carousel-controls">{renderDots(getTotalPages(professionals), professionalPage, setProfessionalPage)}</div>
             </section>
-            <section className="FAQ">
+            <section className="faq">
                 <h1>Perguntas Frequentes (FAQ)</h1>
-                <p>Tire suas dúvidas aqui, caso tenha outra pergunta, entre em contato com nossa <mark>equipe de atendimento.</mark></p>
+                <p className="faq-description">Tire suas dúvidas aqui, caso tenha outra pergunta, entre em contato com nossa <mark>equipe de atendimento.</mark></p>
+                <Accordion items={faqItems} />
             </section>
             <footer>
                 <div className="footer-info">

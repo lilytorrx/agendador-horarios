@@ -13,13 +13,6 @@ export async function apiFetch(endpoint, options = {}) {
         credentials: "include"
     }) 
 
-    // 401 - status erro token inválido ou expirado - redireciona
-    if(response.status === 401) {
-        localStorage.removeItem("token")
-        window.location.href="/login"
-        return
-    }
-
     if(!response.ok) {
         const error = await response.json().catch(() => ({}))
         throw new Error(error.message ?? "Erro na requisição.")
