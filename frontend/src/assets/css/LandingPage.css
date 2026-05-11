@@ -153,6 +153,14 @@ nav ul li a{
     right: 0;
 }
 
+.section-professionals {
+    padding: 2rem 1rem;
+}
+
+.section-professionals p {
+    text-align: center;
+}
+
 .professionals {
     margin: 1rem;
     display: flex;
@@ -162,6 +170,41 @@ nav ul li a{
     align-items: stretch;
 }
 
+.professional {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.professional p {
+    text-align: left;
+}
+
+.professionalImage {
+    width: 150px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: var(--box_shadow);
+}
+
+.professionalName {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profession {
+    font-size: 14px;
+    color: var(--main_color);
+    margin-bottom: 20px;
+}
+
+.service {
+    margin: 10px 0px;
+    font-size: 13px;
+    color: var(--label);
+}
 
 .carousel-animated {
     animation: carouselSlideIn 0.35s ease;

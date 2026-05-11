@@ -185,11 +185,13 @@ const LandingPage = () => {
                         {getPageItems(professionals, professionalPage).map((professional) => (
                             <section key={professional.id} className="professional">
                                 <img src={professional.imageUrl ?? null} className="professionalImage" alt="" />
-                                <p className="professionalName">{professional.name}</p>
-                                <p className="profession">{professional.profession}</p>
-                                <p className="professional-services"><strong>Serviços disponíveis:</strong></p>
-                                <p className="service">Manicure, Pedicure, Alongamento de unhas, Nail art</p>
-                                <Button onClick={() => navigate("/Register")} children="Agendar agora" className="btn mobile" />
+                                <div>
+                                    <p className="professionalName">{professional.name}</p>
+                                    <p className="profession">{professional.profession}</p>
+                                    <p className="professional-services"><strong>Serviços disponíveis:</strong></p>
+                                    <p className="service">{professional.services.join(", ")}</p>
+                                    <Button onClick={() => navigate("/Register")} children="Agendar agora" className="btn mobile" />
+                                </div>
                             </section>
                         ))}
                     </section>
@@ -201,7 +203,7 @@ const LandingPage = () => {
             </section>
             <section className="FAQ">
                 <h1>Perguntas Frequentes (FAQ)</h1>
-                <p>Tire suas dúvidasa aqui, caso tenha outra pergunta, entre em contato com nossa <mark>equipe de atendimento.</mark></p>
+                <p>Tire suas dúvidas aqui, caso tenha outra pergunta, entre em contato com nossa <mark>equipe de atendimento.</mark></p>
             </section>
             <footer>
                 <div className="footer-info">
