@@ -170,7 +170,7 @@ const LandingPage = () => {
                 <div className="carousel-controls">{renderDots(getTotalPages(services), servicePage, setServicePage)}</div>
             </section>
             <section className="section-cta">
-                <div>
+                <div className="cta-text">
                     <h1 className="title">Agendar nunca foi <mark>tão simples.</mark></h1>
                     <p>Cansado de esperar em filas e mais filas para conseguir um angedamento? Com a AgendIn, você se cadastra na plataforma e já tem os horários disponíveis na palma da sua mão. Chega de <mark>filas, estresse e frustração</mark> para seu serviço!</p>
                 </div>

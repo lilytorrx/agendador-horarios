@@ -4,8 +4,12 @@ import com.lily.agendadorHorarios.DTOs.Auth.LoginRequestDTO;
 import com.lily.agendadorHorarios.DTOs.Auth.RegisterRequestDTO;
 import com.lily.agendadorHorarios.DTOs.Auth.ResponseDTO;
 import com.lily.agendadorHorarios.Infrastructure.Entity.User.UserEntity;
+import com.lily.agendadorHorarios.Infrastructure.Exceptions.BusinessException;
+import com.lily.agendadorHorarios.Infrastructure.Exceptions.ConflictException;
 import com.lily.agendadorHorarios.Infrastructure.Exceptions.NotFoundException;
+import com.lily.agendadorHorarios.Infrastructure.Exceptions.UnauthorizedException;
 import com.lily.agendadorHorarios.Infrastructure.Repositories.UserRepository;
+import com.lily.agendadorHorarios.Infrastructure.Utils.CpfValidator;
 import com.lily.agendadorHorarios.Services.Security.TokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,14 +43,17 @@ public class AuthController {
 
             response.addCookie(cookie);
 
-            return ResponseEntity.ok(new ResponseDTO(user.getName(), user.getRole().toString()));
+            return ResponseEntity.ok(new ResponseDTO(user.getName(), user.getRole().toString(), "Usuário logado."));
         } else {
-            return ResponseEntity.badRequest().build();
+            throw new UnauthorizedException("Usuário ou senha inválidos.");
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterRequestDTO body, HttpServletResponse response) {
+    public ResponseEntity<ResponseDTO> register(@RequestBody RegisterRequestDTO body, HttpServletResponse response) {
+        if (userRepository.findByEmail(body.email()).isPresent()) {
+            throw new ConflictException("E-mail já cadastrado.");
+        }
         Optional<UserEntity> user = this.userRepository.findByEmail(body.email());
         if(user.isEmpty()) {
             UserEntity newUser = new UserEntity();
@@ -56,6 +63,7 @@ public class AuthController {
             newUser.setCpf(body.cpf());
             newUser.setPassword(passwordEncoder.encode(body.password()));
 
+            if (!CpfValidator.isValid(body.cpf())) throw new BusinessException("CPF inválido.");
             this.userRepository.save(newUser);
             String token = tokenService.generateToken(newUser);
 
@@ -66,9 +74,10 @@ public class AuthController {
             cookie.setMaxAge(60 * 60 * 8);
             response.addCookie(cookie);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(new ResponseDTO(newUser.getName(), newUser.getRole().toString(), "Usuário cadastrado com sucesso!"));
+        } else {
+            throw new ConflictException("Usuário já cadastrado!");
         }
-        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/logout")

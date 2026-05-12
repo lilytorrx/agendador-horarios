@@ -59,4 +59,16 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorResponseDTO> handleConflict(Exception e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                new ErrorResponseDTO(
+                        HttpStatus.CONFLICT.value(),
+                        "Conflict",
+                        e.getMessage(),
+                        LocalDateTime.now()
+                )
+        );
+    }
+
 }

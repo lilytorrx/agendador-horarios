@@ -7,7 +7,10 @@ export const loginRequest = (email, password) => apiFetch("/auth/login", {
 })
 
 // Register 
-export const registerRequest = (name, email, password, cpf) => apiFetch("/auth/register", {
-    method: "POST",
-    body: JSON.stringify({ name, email, password, cpf })
-}) 
+export const registerRequest = (name, email, password, cpf) => {
+    console.log("registerRequest:", name, email, password, cpf) // ← dentro da função
+    return apiFetch("/auth/register", {
+        method: "POST",
+        body: JSON.stringify({ name, email, password, cpf })
+    })
+}

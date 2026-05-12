@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { registerRequest } from "../../services/authService";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { registerRequest } from "../../services/authService"
 import { cpfDigits, formatCpfMasked, isValidCpf } from "../../utils/cpf";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -10,6 +10,8 @@ import Button from "../../components/Button";
 import Logo from "../../assets/img/imagotipo.png";
 import { useAuth } from "../../context/AuthContext";
 import { getUser } from "../../services/userService"
+
+import "../../assets/css/Register.css"
 
 const Register = () => {
   const { login } = useAuth()
@@ -63,40 +65,42 @@ const Register = () => {
     }
 
     setLoading(true);
-
+    
+    console.log(name, email, password, cpf)
+    
     try {
-        await registerRequest(name, email, password, cpf);
+      await registerRequest(name, email, password, cpf)
       const user = await getUser()
       login(user.role)
       navigate("/dashboard")
     } catch (err) {
-      setError("Ocorreu um erro. Tente novamente.");
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 
   // Tipo de input para senha e confirmação de senha (mesma coisa para o login)
   if (showPassword) {
-    passwordType = "text";
+    passwordType = "text"
   } else {
-    passwordType = "password";
+    passwordType = "password"
   }
 
   if (showConfirmPassword) {
-    confirmPasswordType = "text";
+    confirmPasswordType = "text"
   } else {
-    confirmPasswordType = "password";
+    confirmPasswordType = "password"
   }
 
   return (
     <>
-      <section className="background">
+      <section className="background register">
         <form className="registerForm" onSubmit={handleRegister}>
           <div className="top-login">
-            <img src={Logo} alt="Logo AgendIn" />
+            <img className="logo" src={Logo} alt="Logo AgendIn" />
             <p>Seja bem-vindo ao sistema!</p>
-            <p>
+            <p className="signInText">
               <mark>Crie uma conta para continuar.</mark>
             </p>
             <p>
@@ -141,7 +145,24 @@ const Register = () => {
               />
             </div>
             <div className="input">
-              <label htmlFor="password">Senha</label>
+              <div className="labelShowPassword">
+                <label htmlFor="password">Senha</label>
+                <span className="showPassword">
+                  {showPassword ? (
+                    <FaEye
+                      size={20}
+                      color="#717171"
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      size={20}
+                      color="#717171"
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  )}
+                </span>
+              </div>
               <input
                 id="password"
                 type={passwordType}
@@ -150,24 +171,26 @@ const Register = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <span className="showPassword">
-                {showPassword ? (
-                  <FaEye
-                    size={20}
-                    color="#717171"
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                ) : (
-                  <FaEyeSlash
-                    size={20}
-                    color="#717171"
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                )}
-              </span>
             </div>
             <div className="input">
-              <label htmlFor="confirmPassword">Confirme a senha</label>
+              <div className="labelShowPassword">
+                <label htmlFor="confirmPassword">Confirme a senha</label>
+                <span className="showPassword">
+                  {showConfirmPassword ? (
+                    <FaEye
+                      size={20}
+                      color="#717171"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      size={20}
+                      color="#717171"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    />
+                  )}
+                </span>
+              </div>
               <input
                 id="confirmPassword"
                 type={confirmPasswordType}
@@ -176,24 +199,10 @@ const Register = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
-              <span className="showPassword">
-                {showConfirmPassword ? (
-                  <FaEye
-                    size={20}
-                    color="#717171"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  />
-                ) : (
-                  <FaEyeSlash
-                    size={20}
-                    color="#717171"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  />
-                )}
-              </span>
+              
             </div>
           </div>
-          <span>
+          <span className="ja-login">
             <Link to="/Login">Já possui login?</Link>
           </span>
           <Button type="submit" children="Cadastrar" className="btn mobile" />
@@ -205,8 +214,9 @@ const Register = () => {
           <div className="other-options">
             <div className="options">
               <Button
+                className="option"
                 type="button"
-                onClick={() => setError("Login com o Google em breve!")}
+                onClick={() => setError("Cadastro com o Google em breve!")}
                 children={
                   <>
                     <FcGoogle size={20} />
@@ -218,7 +228,7 @@ const Register = () => {
         </form>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

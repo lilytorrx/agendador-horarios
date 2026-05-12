@@ -1,0 +1,14 @@
+.register {
+    background-image: url("../img/register-background.png")!important;
+}
+
+.ja-login {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.ja-login a {
+    margin: 1rem auto;
+    text-decoration: none;
+}

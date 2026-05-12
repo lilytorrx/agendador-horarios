@@ -258,6 +258,7 @@ nav ul li a{
 .cta-image {
     background-image: url("https://i.imgur.com/NxKlb07.png");
     height: 250px;
+    width: 50%;
     background-size: cover;
     background-position: center center;
     display: flex;
@@ -265,6 +266,10 @@ nav ul li a{
     padding: 0.5rem;
     border-radius: 10px;
     box-shadow: var(--box_shadow);
+}
+
+.cta-text {
+    width: 50%;
 }
 
 .section-cta .title {

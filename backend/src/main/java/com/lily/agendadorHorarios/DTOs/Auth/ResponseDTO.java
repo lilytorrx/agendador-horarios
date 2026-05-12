@@ -1,4 +1,4 @@
 package com.lily.agendadorHorarios.DTOs.Auth;
 
-public record ResponseDTO(String name, String role) {
+public record ResponseDTO(String name, String role, String message) {
 }
