@@ -4,7 +4,9 @@ import logo from "../assets/img/imagotipo.png"
 import "../assets/css/Dashboard.css"
 
 import { IoMenu } from "react-icons/io5"
-import { FaRegUserCircle } from "react-icons/fa"
+import { FaRegUserCircle, FaCalendarAlt, FaUsers } from "react-icons/fa"
+import { RiScissorsFill } from "react-icons/ri";
+
 import { useAuth } from "../context/AuthContext"
 import { useDashboardData } from "../hooks/useDashboardData"
 import Button from "../components/Button"
@@ -35,18 +37,20 @@ const Dashboard = () => {
         <>
             <section className="head">
                 <img className="logo" src={logo} alt="AgendIn logo" />
-                <FaRegUserCircle className="user"
-                    color="#883CE5"
-                    size={20}
-                />
-                <IoMenu className="menu"
-                    color="#883CE5"
-                    size={20}
-                />
+                <div className="icons">
+                    <FaRegUserCircle className="icon"
+                        color="#883CE5"
+                        size={25}
+                    />
+                    <IoMenu className="icon"
+                        color="#883CE5"
+                        size={25}
+                    />
+                </div>
             </section>
             <section className="welcome">
                 <div>
-                    <h1>Olá,<mark>{loading ? "..." : user?.name || "usuário"}!</mark></h1>
+                    <h1>Olá, <mark>{loading ? "..." : user?.name || "usuário"}!</mark></h1>
                     <p className="date-time">{days[date.getDay()]}, {date.getDate()} de {months[date.getMonth()]} de {date.getFullYear()}</p>
                 </div>
                 <div>
@@ -58,24 +62,33 @@ const Dashboard = () => {
             </section>
             <section className="dashboard">
                 <h1>Dashboard</h1>
-                <p>Visão geral</p>
-                <div className="schedules">
+                <p>Visão geral de seus agendamentos, serviços e profissionais.</p>
+                <div className="section-total schedules">
                     <div className="today-schedules">
                         <p>Agendamentos Hoje</p>
-                        <p>{loading ? "..." : todaySchedules.length}</p>
+                        <p className="number">{loading ? "..." : todaySchedules.length}</p>
                     </div>
+                     <div className="icon-total icon-today-schedules">
+                        <FaCalendarAlt color="#883CE5"/>
+                     </div>
                 </div>
-                <div className="dashboard-services">
+                <div className="section-total dashboard-services">
                     <div className="total-services">
                         <p>Total de Serviços</p>
-                        <p>{loading ? "..." : totalServices}</p>
+                        <p className="number">{loading ? "..." : totalServices}</p>
+                    </div>
+                    <div className="icon-total icon-services">
+                        <RiScissorsFill color="#99A5F6"/>
                     </div>
                 </div>
-                <div className="dashboard-professional">
+                <div className="section-total dashboard-professional">
                     <div className="total-professionals">
                         <p>Total de Profissionais</p>
-                        <p>{loading ? "..." : totalProfessionals}</p>
+                        <p className="number">{loading ? "..." : totalProfessionals}</p>
                     </div>
+                     <div className="icon-total icon-professionals">
+                        <FaUsers color="#287646"/>
+                     </div>
                 </div>
                 {error && (
                     <div className="error-message">
@@ -96,6 +109,9 @@ const Dashboard = () => {
                     <p>{loading ? "..." : allSchedules.length}</p>
                 </div>
             </div>
+            <section className="copyright">
+                <p>AgendIn ©2026. Todos os direitos reservados.</p>
+            </section>
         </>
     )
 }

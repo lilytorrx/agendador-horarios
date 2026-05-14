@@ -1,0 +1,73 @@
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: var(--box_shadow_black);
+    padding: 1rem;
+}
+
+.icon {
+    cursor: pointer;
+    margin: 0rem 5px;
+}
+
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem auto;
+    padding: 1rem;
+}
+
+.dashboard {
+    padding: 1rem;
+}
+
+.welcome h1, .dashboard h1 {
+    font-size: var(--title_mobile);
+}
+
+.dashboard h1 {
+    margin-bottom: 0.5rem;
+}
+
+.date-time, .dashboard p {
+    font-size: var(--body_mobile);
+}
+
+.section-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: var(--box_shadow);
+    padding: 1.5rem;
+    margin: 1.5rem 0rem;
+}
+
+.number {
+    margin-top: 0.5rem;
+    font-size: var(--title_desktop)!important;
+    font-weight: bold;
+}
+
+.icon-total {
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-professionals {
+    background-color: #DFFFF4;
+}
+
+.icon-services {
+    background-color: #DFE9FF;
+}
+
+.icon-today-schedules {
+    background-color: #EBDBFF;
+}

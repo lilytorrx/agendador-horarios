@@ -29,7 +29,8 @@ mark {
 
     --font: "Google Sans", sans-serif;
 
-    --box_shadow:rgba(136, 60, 229, 0.281) 0px 2px 30px;
+    --box_shadow:rgba(136, 60, 229, 0.151) 0px 2px 30px;
+    --box_shadow_black: rgba(0, 0, 0, 0.089) 0px 2px 30px;
 
     --title_mobile: 20px;
     --title_desktop: 32px;
