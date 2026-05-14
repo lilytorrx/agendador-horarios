@@ -6,6 +6,7 @@ import com.lily.agendadorHorarios.Infrastructure.Entity.Schedule.ScheduleStatus;
 import com.lily.agendadorHorarios.Services.Schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/data")
-    public ResponseEntity<List<ScheduleResponseDTO>> buscarPorData(@RequestParam LocalDateTime start, @RequestParam LocalDateTime end) {
+    public ResponseEntity<List<ScheduleResponseDTO>> buscarPorData(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
         return ResponseEntity.ok(service.buscarPorData(start, end));
     }
 

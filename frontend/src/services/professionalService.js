@@ -9,7 +9,7 @@ export const getPublicProfessionals = () => apiFetch("/professionals/public")
 export const getProfessionals = () => apiFetch("/professionals")
 
 // GET /professionals/:id
-export const getProfessionalById = (id) => apiFetch(`/professionals/${ìd}`)
+export const getProfessionalById = (id) => apiFetch(`/professionals/${id}`)
 
 // POST /professionals
 export const createProfessional = (data) => apiFetch("/professionals", {
