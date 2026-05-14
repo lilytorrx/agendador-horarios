@@ -13,6 +13,7 @@ import com.lily.agendadorHorarios.Infrastructure.Utils.CpfValidator;
 import com.lily.agendadorHorarios.Services.Security.TokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,7 +51,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseDTO> register(@RequestBody RegisterRequestDTO body, HttpServletResponse response) {
+    public ResponseEntity<ResponseDTO> register(@RequestBody @Valid RegisterRequestDTO body, HttpServletResponse response) {
+        if(!CpfValidator.isValid(body.cpf())) {
+            throw new BusinessException("CPF inválido.");
+        }
+
         if (userRepository.findByEmail(body.email()).isPresent()) {
             throw new ConflictException("E-mail já cadastrado.");
         }
@@ -62,8 +67,6 @@ public class AuthController {
             newUser.setEmail(body.email());
             newUser.setCpf(body.cpf());
             newUser.setPassword(passwordEncoder.encode(body.password()));
-
-            if (!CpfValidator.isValid(body.cpf())) throw new BusinessException("CPF inválido.");
             this.userRepository.save(newUser);
             String token = tokenService.generateToken(newUser);
 

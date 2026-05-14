@@ -66,8 +66,6 @@ const Register = () => {
 
     setLoading(true);
     
-    console.log(name, email, password, cpf)
-    
     try {
       await registerRequest(name, email, password, cpf)
       const user = await getUser()

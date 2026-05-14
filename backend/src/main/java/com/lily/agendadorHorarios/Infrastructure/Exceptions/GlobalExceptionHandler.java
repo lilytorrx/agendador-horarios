@@ -3,6 +3,7 @@ package com.lily.agendadorHorarios.Infrastructure.Exceptions;
 import com.lily.agendadorHorarios.DTOs.Error.ErrorResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,6 +20,25 @@ public class GlobalExceptionHandler {
                         e.getMessage(),
                         LocalDateTime.now()
 
+                )
+        );
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponseDTO> handleValidation(MethodArgumentNotValidException e) {
+        String message = e.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(field -> field.getField() + ": " + field.getDefaultMessage())
+                .findFirst()
+                .orElse("Erro de validação.");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponseDTO(
+                        HttpStatus.BAD_REQUEST.value(),
+                        "Validation Error",
+                        message,
+                        LocalDateTime.now()
                 )
         );
     }

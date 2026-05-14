@@ -2,9 +2,10 @@ package com.lily.agendadorHorarios.Infrastructure.Utils;
 
 public class CpfValidator {
     public static boolean isValid(String cpf) {
-        String digits = cpf.replace("[^0-9]", "");
+        String digits = cpf.replaceAll("[.\\-]", "").trim();
 
-        if(digits.length()!= 11) return false;
+        if (digits.length() != 11) return false;
+        if (digits.chars().distinct().count() == 1) return false;
 
         if(digits.chars().distinct().count() == 11) return false;
 
