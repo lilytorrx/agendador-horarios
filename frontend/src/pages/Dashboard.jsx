@@ -27,10 +27,14 @@ const Dashboard = () => {
     const days = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"]
     const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
+    function openFilterModal() {
+        console.log("Por enquanto é isso pessoal")
+    }
+
     return (
         <>
             <section className="head">
-                <img className="logo"src={logo} alt="AgendIn logo" />
+                <img className="logo" src={logo} alt="AgendIn logo" />
                 <FaRegUserCircle className="user"
                     color="#883CE5"
                     size={20}
@@ -42,8 +46,8 @@ const Dashboard = () => {
             </section>
             <section className="welcome">
                 <div>
-                    <h1>Olá,<mark>{ loading ? "..." : user?.name || "usuário" }!</mark></h1>
-                    <p className="date-time">{ days[date.getDay()] }, { date.getDate() } de { months[date.getMonth()] } de { date.getFullYear() }</p>
+                    <h1>Olá,<mark>{loading ? "..." : user?.name || "usuário"}!</mark></h1>
+                    <p className="date-time">{days[date.getDay()]}, {date.getDate()} de {months[date.getMonth()]} de {date.getFullYear()}</p>
                 </div>
                 <div>
                     <Button
@@ -56,13 +60,9 @@ const Dashboard = () => {
                 <h1>Dashboard</h1>
                 <p>Visão geral</p>
                 <div className="schedules">
-                    <div className="total-schedules">
+                    <div className="today-schedules">
                         <p>Agendamentos Hoje</p>
                         <p>{loading ? "..." : todaySchedules.length}</p>
-                    </div>
-                    <div className="total-schedules">
-                        <p>Total de Agendamentos</p>
-                        <p>{loading ? "..." : allSchedules.length}</p>
                     </div>
                 </div>
                 <div className="dashboard-services">
@@ -83,6 +83,19 @@ const Dashboard = () => {
                     </div>
                 )}
             </section>
+            <div className="section-total-schedules">
+                <div className="total-schedules">
+                    <div className="top-schedules">
+                        <p>Agendamentos</p>
+                        <Button
+                            className="btn .filter"
+                            children="Filtrar"
+                            onClick={openFilterModal()}
+                        />
+                    </div>
+                    <p>{loading ? "..." : allSchedules.length}</p>
+                </div>
+            </div>
         </>
     )
 }
